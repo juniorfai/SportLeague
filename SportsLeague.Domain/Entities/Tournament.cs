@@ -9,7 +9,7 @@ namespace SportsLeague.Domain.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public TournamentStatus Status { get; set; } = TournamentStatus.Pending;
-
+        public ICollection<TournamentSponsor> TournamentSponsors { get; set; } = new List<TournamentSponsor>();
         // Navigation Properties
         public ICollection<TournamentTeam> TournamentTeams { get; set; } = new List<TournamentTeam>();
     }

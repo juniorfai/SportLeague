@@ -16,21 +16,25 @@ namespace SportsLeague.API.Mappings
             // Player mappings
             CreateMap<PlayerRequestDTO, Player>();
             CreateMap<Player, PlayerResponseDTO>()
-                .ForMember(
-                    dest => dest.TeamName,
-                    opt => opt.MapFrom(src => src.Team.Name));
+                .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name));
 
             // Referee mappings
             CreateMap<RefereeRequestDTO, Referee>();
             CreateMap<Referee, RefereeResponseDTO>();
 
-            // Tournament mappings
+            // ===== TOURNAMENT MAPPINGS =====
             CreateMap<TournamentRequestDTO, Tournament>();
-            CreateMap<Tournament, TournamentResponseDTO>()
-                .ForMember(
-                    dest => dest.TeamsCount,
-                    opt => opt.MapFrom(src =>
-                        src.TournamentTeams != null ? src.TournamentTeams.Count : 0)); //Condición ternaria
+            CreateMap<Tournament, TournamentResponseDTO>();  // ← Usa TournamentResponseDTO
+
+            // ===== SPONSOR MAPPINGS =====
+            CreateMap<SponsorRequestDTO, Sponsor>();
+            CreateMap<Sponsor, SponsorResponseDTO>();
+
+            // ===== TOURNAMENT SPONSOR MAPPINGS =====
+            CreateMap<TournamentSponsorRequestDTO, TournamentSponsor>();
+            CreateMap<TournamentSponsor, TournamentSponsorResponseDTO>()  // ← Usa TournamentSponsorResponseDTO
+                .ForMember(dest => dest.TournamentName, opt => opt.MapFrom(src => src.Tournament.Name))
+                .ForMember(dest => dest.SponsorName, opt => opt.MapFrom(src => src.Sponsor.Name));
         }
     }
 }
